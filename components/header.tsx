@@ -11,7 +11,7 @@ export default function Header() {
           width={40}
           height={40}
         />
-        <h1 className="text-2xl font-bold bg-gradient-to-b from-white to-gray-600 text-transparent bg-clip-text transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:text-shadow-[0_0_8px_#6E54FF]">
+        <h1 className="customSm:text-sm text-2xl font-bold bg-gradient-to-b from-white to-gray-600 text-transparent bg-clip-text transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:text-shadow-[0_0_8px_#6E54FF]">
           MonadChad
         </h1>{" "}
       </div>

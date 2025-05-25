@@ -59,6 +59,9 @@ export default {
       backgroundImage: {
         monad: "linear-gradient(rgb(33, 26, 61) 20%, rgb(18, 18, 18) 100%)",
       },
+      screens: {
+        customSm: "320px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

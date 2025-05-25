@@ -149,7 +149,7 @@ export default function Vote() {
 
   return (
     <div className="bg-gray-900 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 customSm:py-2">
         {/* Header */}
         <Header />
 
@@ -216,7 +216,7 @@ export default function Vote() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  Results
+                  Rankings
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-white">
