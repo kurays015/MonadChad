@@ -87,7 +87,7 @@ export default function Vote() {
     return data.filter(dapp =>
       dapp.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [data, searchQuery]);
+  }, [, searchQuery]);
 
   const paginatedDapps = useMemo(() => {
     const start = (currentPage - 1) * dappsPerPage;
