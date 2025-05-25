@@ -229,7 +229,7 @@ export default function Vote() {
                     return voteCountB - voteCountA; // Descending order
                   })
                   .slice(0, 10) // Show top 10 for brevity
-                  .map((dapp, index) => {
+                  .map(dapp => {
                     const percent =
                       totalVotes > 0
                         ? ((dapps.find(item => item.id === dapp.id)
