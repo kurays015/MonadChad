@@ -1,4 +1,5 @@
 import { data } from "@/lib/data";
+import VoteCount from "./vote-count";
 
 export default function VotingSectionHeader() {
   return (
@@ -12,7 +13,15 @@ export default function VotingSectionHeader() {
       >
         Vote Your Favorite Monad dApp
       </h1>
-      <p className="text-sm text-muted-foreground mt-2">{data.length} dApps</p>
+      <div className="flex items-center justify-center gap-2 w-full mt-4">
+        <p className="text-sm text-muted-foreground font-semibold">
+          {data.length} dApps
+        </p>
+        <VoteCount />
+      </div>
+      <p className="italic mt-2 text-xs font-medium text-[#C3B6FF] bg-[#2a174a]/60 px-3 py-1 rounded-lg shadow-sm">
+        reset every 4AM UTC
+      </p>
     </div>
   );
 }

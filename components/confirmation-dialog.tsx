@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
+import Link from "next/link";
 
 export default function ConfirmationDialog() {
   const [isVoting, setIsVoting] = useState(false);
@@ -67,20 +68,21 @@ export default function ConfirmationDialog() {
       });
       setTransactionHash(txHash);
 
-      console.log(txHash, "Transaction hash");
-
-      if (txHash) {
+      if (isConfirmed) {
         toast(
-          <div className="flex items-center space-x-5">
-            Transaction Successful!{" "}
-            <a
+          <div className="flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2a174a] via-[#6E54FF] to-[#836EF9] shadow-lg border border-[#6E54FF]">
+            <span className="font-semibold text-white text-base drop-shadow-sm">
+              Transaction Successful!
+            </span>
+            <Link
               href={`https://testnet.monadexplorer.com/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline"
+              className="flex items-center text-[#C3B6FF] hover:text-white underline"
             >
-              <ExternalLink className="w-4 h-4 mr-1 ml-40 z-40" />
-            </a>
+              <ExternalLink className="w-4 h-4 ml-2" />
+              <span className="ml-1 text-xs">View</span>
+            </Link>
           </div>,
           {
             duration: 5000,
@@ -118,6 +120,15 @@ export default function ConfirmationDialog() {
                 Waiting for transaction confirmation...
               </span>
             )}
+            {/* {receiptError && (
+              <Card className="bg-[#1A1D21] border-red-500 shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08),0px_0px_0px_1px_#000]">
+                <CardContent className="pt-4">
+                  <p className="text-red-600 text-sm">
+                    Transaction Error: {receiptError.message}
+                  </p>
+                </CardContent>
+              </Card>
+            )} */}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

@@ -5,7 +5,7 @@ import { contractAddress } from "@/lib/contract-address";
 import { votingAbi } from "@/lib/votingAbi";
 import { usePageStore } from "@/store/page-store";
 import { useMemo } from "react";
-import { useReadContract } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import DappGridCard from "./dapp-grid-card";
 import { useSearchStore } from "@/store/search-store";
 import { data } from "@/lib/data";
@@ -40,8 +40,6 @@ export default function DappsGrid() {
     };
   });
 
-  console.log(dapps);
-
   const filteredDapps = useMemo(() => {
     if (!searchQuery) return dappsDataByVotes;
     return dappsDataByVotes.filter(dapp =>
@@ -54,9 +52,6 @@ export default function DappsGrid() {
     const end = start + dappsPerPage;
     return filteredDapps.slice(start, end);
   }, [filteredDapps, currentPage]);
-
-  // console.log(dapps);
-  // console.log(dappsDataByVotes.find(d => d.id === 19 || d.id === 20));
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
