@@ -117,3 +117,29 @@
   background: url("/COOL IMAGE I CAN USE IN NEXTJS.svg") no-repeat center center;
   background-size: cover;
 } */
+
+/* app/globals.css */
+[data-sonner-toast] {
+  background: transparent !important; /* Remove white background */
+  border: none !important; /* Remove default border */
+  padding: 0 !important; /* Remove default padding */
+  box-shadow: none !important; /* Remove default shadow */
+}
+
+/* Optional: Style specific toast elements */
+[data-sonner-toast] [data-title] {
+  color: white !important;
+  font-weight: 600;
+}
+
+[data-sonner-toast] [data-description] {
+  color: #c3b6ff !important;
+  font-size: 0.875rem;
+}
+
+[data-sonner-toast] [data-button] {
+  background: #6e54ff !important;
+  color: white !important;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+}

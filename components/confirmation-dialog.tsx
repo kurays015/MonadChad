@@ -68,7 +68,9 @@ export default function ConfirmationDialog() {
       });
       setTransactionHash(txHash);
 
-      if (isConfirmed) {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+
+      if (txHash) {
         toast(
           <div className="flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2a174a] via-[#6E54FF] to-[#836EF9] shadow-lg border border-[#6E54FF]">
             <span className="font-semibold text-white text-base drop-shadow-sm">

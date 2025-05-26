@@ -35,6 +35,8 @@ export default function AddDapp() {
       });
       setNewDappName("");
 
+      // await new Promise(resolve => setTimeout(resolve, 3000));
+
       if (txHash) {
         toast(
           <div className="flex items-center space-x-5">
