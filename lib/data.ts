@@ -473,4 +473,10 @@ export const data = [
     url: "https://testnet.azex.io",
     logo: "https://pbs.twimg.com/profile_images/1897229855739064320/C3B5Onw8_400x400.jpg",
   },
+  {
+    id: 80,
+    name: "Atlantis",
+    url: "https://atlantisdex.xyz/",
+    logo: "https://pbs.twimg.com/profile_images/1902110216402927616/2KI7eXdp_400x400.jpg",
+  },
 ];

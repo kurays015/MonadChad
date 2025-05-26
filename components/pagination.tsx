@@ -1,22 +1,23 @@
+"use client";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { usePageStore } from "@/store/page-store";
+import { data } from "@/lib/data";
 
-export default function Pagination({
-  totalPages,
-  currentPage,
-  setCurrentPage,
-}: {
-  totalPages: number;
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-}) {
+export default function Pagination() {
+  const currentPage = usePageStore(state => state.currentPage);
+  const setCurrentPage = usePageStore(state => state.setCurrentPage);
+  const dappsPerPage = 12;
+  const totalPages = Math.ceil(data.length / dappsPerPage);
+
   return (
     <>
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-4">
           <Button
             className="bg-[#6E54FF] text-white hover:bg-[#836EF9] rounded-[100px]"
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
           >
             <ChevronLeft className="h-4 w-4 mr-2" />
@@ -28,7 +29,7 @@ export default function Pagination({
           <Button
             className="bg-[#6E54FF] text-white hover:bg-[#836EF9] rounded-[100px]"
             onClick={() =>
-              setCurrentPage(prev => Math.min(prev + 1, totalPages))
+              setCurrentPage(Math.min(currentPage + 1, totalPages))
             }
             disabled={currentPage === totalPages}
           >

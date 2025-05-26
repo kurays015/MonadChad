@@ -1,3 +1,5 @@
+"use client";
+
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
@@ -8,6 +10,7 @@ import { contractAddress } from "@/lib/contract-address";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
 import { toast } from "sonner";
+
 export default function AddDapp() {
   const [newDappName, setNewDappName] = useState("");
   const { address, isConnected } = useAccount();
@@ -30,22 +33,25 @@ export default function AddDapp() {
         args: [newDappName],
       });
       setNewDappName("");
-      toast(
-        <div className="flex items-center space-x-5">
-          Transaction Successful!{" "}
-          <a
-            href={`https://testnet.monadexplorer.com/tx/${txHash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            <ExternalLink className="w-4 h-4 mr-1 ml-40" />
-          </a>
-        </div>,
-        {
-          duration: 5000,
-        }
-      );
+
+      if (txHash) {
+        toast(
+          <div className="flex items-center space-x-5">
+            Transaction Successful!{" "}
+            <a
+              href={`https://testnet.monadexplorer.com/tx/${txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              <ExternalLink className="w-4 h-4 mr-1 ml-40 z-40" />
+            </a>
+          </div>,
+          {
+            duration: 5000,
+          }
+        );
+      }
     } catch (error) {
       alert("Error adding dApp: " + (error as Error).message);
     }

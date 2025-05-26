@@ -61,6 +61,7 @@ export default {
       },
       screens: {
         customSm: "320px",
+        customSemiMd: "460px",
       },
     },
   },

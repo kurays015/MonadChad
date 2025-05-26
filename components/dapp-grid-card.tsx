@@ -4,22 +4,16 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { LinkIcon, Loader2 } from "lucide-react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { Dispatch, SetStateAction } from "react";
-import { useAccount, useReadContract } from "wagmi";
-import { votingAbi } from "@/lib/votingAbi";
-import { contractAddress } from "@/lib/contract-address";
+import { useAccount } from "wagmi";
+import { useVotingStore } from "@/store/voting-store";
+import { useVoteLimit } from "@/hooks/useVoteLimit";
 
 type DappGridCardProps = {
   id: number;
   name: string;
-  url: string;
-  logo: string;
-  findVote: number | undefined;
-  setSelectedOption: Dispatch<
-    SetStateAction<{ id: number; name: string } | null>
-  >;
-  setTransactionError: Dispatch<SetStateAction<string | null>>;
-  loadingDappId: number | null;
+  voteCount: number;
+  url: string | undefined;
+  logo: string | undefined;
 };
 
 export default function DappGridCard({
@@ -27,23 +21,16 @@ export default function DappGridCard({
   logo,
   name,
   url,
-  findVote,
-  setSelectedOption,
-  setTransactionError,
-  loadingDappId,
+  voteCount,
 }: DappGridCardProps) {
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
-
-  const { data: voteInfo } = useReadContract({
-    address: contractAddress,
-    abi: votingAbi,
-    functionName: "votes",
-    args: [address],
-  });
-
-  const voteCount = voteInfo ? Number((voteInfo as [bigint, number])[0]) : 0;
-  const hasReachedLimit = voteCount >= 10;
+  const setSelectedOption = useVotingStore(state => state.setSelectedOption);
+  const setTransactionError = useVotingStore(
+    state => state.setTransactionError
+  );
+  const loadingDappId = useVotingStore(state => state.loadingDappId);
+  const { hasReachedLimit } = useVoteLimit();
 
   const handleVote = (dapp: { id: number; name: string }) => {
     if (!isConnected) return alert("Please connect your wallet.");
@@ -58,7 +45,7 @@ export default function DappGridCard({
       key={id}
       className="bg-[#1A1D21] border-none shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08),0px_0px_0px_1px_#000] transition-transform hover:scale-105"
     >
-      <CardHeader className="relative">
+      <CardHeader className="relative gap-4">
         <CardTitle className="flex items-center space-x-2 text-white">
           {logo && (
             <Image
@@ -72,7 +59,7 @@ export default function DappGridCard({
             />
           )}
           <Link
-            href={url}
+            href={url || ""}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"
@@ -80,15 +67,15 @@ export default function DappGridCard({
             {name}
           </Link>
 
-          <Link href={url} target="_blank" rel="noopener noreferrer">
+          <Link href={url || ""} target="_blank" rel="noopener noreferrer">
             <div className="absolute right-2 top-5 -translate-y-1/2 flex items-center justify-center w-6 h-6 border border-white/20 rounded-full transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:border-[#6E54FF] hover:shadow-[0_0_8px_#6E54FF,0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)]">
               <LinkIcon className="w-3 h-3 text-white" />
             </div>
           </Link>
         </CardTitle>
-        <p className="text-sm text-muted-foreground">
-          {findVote ? findVote : 0} vote
-          {findVote && findVote >= 2 ? "s" : ""}
+        <p className="text-xs font-semibold px-3 py-1 rounded-full bg-[#23262b] text-gray-400 w-fit mt-2 shadow-sm border border-[#2d2f36]">
+          <span className="text-purple-400">{voteCount}</span> vote
+          {voteCount !== 1 ? "s" : ""}
         </p>
       </CardHeader>
       <CardFooter>

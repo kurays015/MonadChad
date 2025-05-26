@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from "@/app/providers";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,10 +27,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased bg-monad`}>
         <Providers>
-          <main>
+          <main className="max-w-7xl customSm:m-4 lg:mx-auto lg:px-8">
+            <Header />
             {children}
             <Toaster />
           </main>
+          <Footer />
         </Providers>
       </body>
     </html>

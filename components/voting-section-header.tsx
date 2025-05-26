@@ -1,8 +1,10 @@
-export default function VotingSectionHeader({ count }: { count: number }) {
+import { data } from "@/lib/data";
+
+export default function VotingSectionHeader() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between flex-col">
       <h1
-        className="bg-gradient-to-b from-white to-gray-600 text-2xl font-bold"
+        className="bg-gradient-to-b from-white to-gray-600 lg:text-3xl customSm:text-lg md:text-xl font-bold"
         style={{
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -10,7 +12,7 @@ export default function VotingSectionHeader({ count }: { count: number }) {
       >
         Vote Your Favorite Monad dApp
       </h1>
-      <p className="text-sm text-muted-foreground">{count} dApps</p>
+      <p className="text-sm text-muted-foreground mt-2">{data.length} dApps</p>
     </div>
   );
 }
