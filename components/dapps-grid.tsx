@@ -5,7 +5,7 @@ import { contractAddress } from "@/lib/contract-address";
 import { votingAbi } from "@/lib/votingAbi";
 import { usePageStore } from "@/store/page-store";
 import { useMemo } from "react";
-import { useAccount, useReadContract } from "wagmi";
+import { useReadContract } from "wagmi";
 import DappGridCard from "./dapp-grid-card";
 import { useSearchStore } from "@/store/search-store";
 import { data } from "@/lib/data";
