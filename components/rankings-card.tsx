@@ -91,6 +91,8 @@ export default function RankingsCard() {
                     {dapp.logo && (
                       <Image
                         src={dapp.logo}
+                        blurDataURL={dapp.logo}
+                        placeholder="blur"
                         alt={`${dapp.name} logo`}
                         width={20}
                         height={20}

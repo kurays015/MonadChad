@@ -30,6 +30,7 @@ export default function DappsGrid() {
     const match = data.find(
       d => d.id === contractData.id || d.name === contractData.name
     );
+
     return {
       id: contractData.id,
       name: contractData.name,
@@ -38,6 +39,8 @@ export default function DappsGrid() {
       logo: match?.logo,
     };
   });
+
+  console.log(dapps);
 
   const filteredDapps = useMemo(() => {
     if (!searchQuery) return dappsDataByVotes;
@@ -51,6 +54,9 @@ export default function DappsGrid() {
     const end = start + dappsPerPage;
     return filteredDapps.slice(start, end);
   }, [filteredDapps, currentPage]);
+
+  // console.log(dapps);
+  // console.log(dappsDataByVotes.find(d => d.id === 19 || d.id === 20));
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
