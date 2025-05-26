@@ -25,9 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased bg-monad`}>
+      <body className={`${inter.className} antialiased bg-monad `}>
         <Providers>
-          <main className="max-w-7xl customSm:m-4 lg:mx-auto lg:px-8">
+          <main className="max-w-7xl customSm:m-4 lg:mx-auto lg:px-8 ">
             <Header />
             {children}
             <Toaster />

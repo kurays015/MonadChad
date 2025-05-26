@@ -113,3 +113,7 @@
     @apply bg-background text-foreground;
   }
 }
+/* .bg-svg-hero {
+  background: url("/COOL IMAGE I CAN USE IN NEXTJS.svg") no-repeat center center;
+  background-size: cover;
+} */
