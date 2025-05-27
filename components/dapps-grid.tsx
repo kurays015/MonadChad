@@ -55,9 +55,9 @@ export default function DappsGrid() {
   }, [filteredDapps, currentPage]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {!dapps.length ? (
-        <div className="col-span-full flex flex-col items-center justify-center py-16">
+        <div className="col-span-full flex flex-col items-center justify-center py-16 h-[60vh]">
           <Loader2 className="w-10 h-10 text-[#6E54FF] animate-spin mb-2" />
           <p className="text-muted-foreground text-center">Loading...</p>
         </div>

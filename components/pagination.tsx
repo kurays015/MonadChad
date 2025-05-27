@@ -20,7 +20,7 @@ export default function Pagination() {
             onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
           >
-            <ChevronLeft className="h-4 w-4 mr-2" />
+            <ChevronLeft className="h-4 w-4" />
             Previous
           </Button>
           <p className="text-muted-foreground">
