@@ -25,6 +25,7 @@ export default function DappGridCard({
 }: DappGridCardProps) {
   const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
+
   const setSelectedOption = useVotingStore(state => state.setSelectedOption);
   const setTransactionError = useVotingStore(
     state => state.setTransactionError

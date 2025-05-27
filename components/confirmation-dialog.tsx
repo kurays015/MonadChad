@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
 import Link from "next/link";
+import { Card, CardContent } from "./ui/card";
 
 export default function ConfirmationDialog() {
   const [isVoting, setIsVoting] = useState(false);
@@ -39,7 +40,7 @@ export default function ConfirmationDialog() {
   const {
     isLoading: isConfirming,
     isSuccess: isConfirmed,
-    // error: receiptError,
+    error: receiptError,
   } = useWaitForTransactionReceipt({
     hash: transactionHash,
   });
@@ -50,6 +51,7 @@ export default function ConfirmationDialog() {
       setIsVoting(false);
       setLoadingDappId(null);
       setTransactionHash(undefined);
+      // refetch();
     }
   }, [isConfirming, isConfirmed]);
 
@@ -122,7 +124,7 @@ export default function ConfirmationDialog() {
                 Waiting for transaction confirmation...
               </span>
             )}
-            {/* {receiptError && (
+            {receiptError && (
               <Card className="bg-[#1A1D21] border-red-500 shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08),0px_0px_0px_1px_#000]">
                 <CardContent className="pt-4">
                   <p className="text-red-600 text-sm">
@@ -130,7 +132,7 @@ export default function ConfirmationDialog() {
                   </p>
                 </CardContent>
               </Card>
-            )} */}
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

@@ -1,5 +1,6 @@
 import { data } from "@/lib/data";
 import VoteCount from "./vote-count";
+import VoteCountdown from "./vote-countdown";
 
 export default function VotingSectionHeader() {
   return (
@@ -19,9 +20,7 @@ export default function VotingSectionHeader() {
         </p>
         <VoteCount />
       </div>
-      <p className="italic mt-2 text-xs font-medium text-[#C3B6FF] bg-[#2a174a]/60 px-3 py-1 rounded-lg shadow-sm">
-        reset every 4AM UTC
-      </p>
+      <VoteCountdown />
     </div>
   );
 }
