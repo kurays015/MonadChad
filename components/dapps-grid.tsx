@@ -20,6 +20,8 @@ export default function DappsGrid() {
   });
   const dapps = useDApps(contractAddress, dappCount);
 
+  console.log(dapps, "DAPSS");
+
   const dappsPerPage = 12;
   const searchQuery = useSearchStore(state => state.searchQuery);
 

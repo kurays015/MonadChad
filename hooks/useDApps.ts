@@ -17,7 +17,7 @@ export default function useDApps(
         args: [BigInt(id)],
         query: {
           enabled: dappCount !== undefined && id <= Number(dappCount),
-          refetchInterval: 5000, // Refetch every 5 seconds
+          // refetchInterval: 5000, // Refetch every 5 seconds
         },
       }),
     })
