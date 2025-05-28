@@ -7,14 +7,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useVotingStore } from "@/store/voting-store";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
-
-type DappGridCardProps = {
-  id: number;
-  name: string;
-  voteCount: number;
-  url: string | undefined;
-  logo: string | undefined;
-};
+import type { DappGridCardProps } from "@/types";
 
 export default function DappGridCard({
   id,
@@ -25,13 +18,13 @@ export default function DappGridCard({
 }: DappGridCardProps) {
   const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
+  const { hasReachedLimit } = useVoteLimit();
 
   const setSelectedOption = useVotingStore(state => state.setSelectedOption);
   const setTransactionError = useVotingStore(
     state => state.setTransactionError
   );
   const loadingDappId = useVotingStore(state => state.loadingDappId);
-  const { hasReachedLimit } = useVoteLimit();
 
   const handleVote = (dapp: { id: number; name: string }) => {
     if (!isConnected) return alert("Please connect your wallet.");
@@ -40,6 +33,9 @@ export default function DappGridCard({
     setSelectedOption(dapp);
     setTransactionError(null);
   };
+
+  const placeholder =
+    "https://cdn.prod.website-files.com/667c57e6f9254a4b6d914440/667d7104644c621965495f6e_LogoMark.svg";
 
   return (
     <Card
@@ -50,7 +46,7 @@ export default function DappGridCard({
         <CardTitle className="flex items-center space-x-2 text-white">
           {logo && (
             <Image
-              src={logo}
+              src={logo ? logo : placeholder}
               alt={`${name} logo`}
               blurDataURL={logo}
               placeholder="blur"
@@ -92,6 +88,8 @@ export default function DappGridCard({
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Voting...
             </>
+          ) : hasReachedLimit ? (
+            "No votes left"
           ) : (
             "Vote"
           )}

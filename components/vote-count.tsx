@@ -1,24 +1,14 @@
 "use client";
 
-import { contractAddress } from "@/lib/contract-address";
-import { votingAbi } from "@/lib/votingAbi";
-import { useAccount, useReadContract } from "wagmi";
+import useUserVotingInfo from "@/hooks/useUserVotingInfo";
 
 export default function VoteCount() {
-  const { address } = useAccount();
+  const { allTimeVotes, error, isLoading, votesLeft, address } =
+    useUserVotingInfo();
 
-  const { data: voteInfo } = useReadContract({
-    address: contractAddress,
-    abi: votingAbi,
-    functionName: "votes",
-    args: [address],
-  });
+  if (!address) return <p className="text-gray-400 text-sm">Connect wallet</p>;
 
-  const voteCount = voteInfo ? Number((voteInfo as [bigint, number])[0]) : 0;
-
-  const votesLeft = Math.max(0, 10 - voteCount);
-
-  // # CHANGE ABI OF LATEST UPGRADABLE!
+  if (isLoading) return <p className="text-gray-400 text-sm">Loading...</p>;
 
   return (
     <div>

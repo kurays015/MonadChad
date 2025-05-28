@@ -152,6 +152,51 @@ export const votingAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "getCurrentVotingDay",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getNextResetTimestamp",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "getUserTotalVotes",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         components: [
@@ -166,7 +211,7 @@ export const votingAbi = [
             type: "uint256",
           },
         ],
-        internalType: "struct VotingUpgradeable.DApp[]",
+        internalType: "struct VotingUpgradeableV3.DApp[]",
         name: "initialDApps",
         type: "tuple[]",
       },
@@ -244,7 +289,12 @@ export const votingAbi = [
       },
       {
         internalType: "uint256",
-        name: "lastReset",
+        name: "lastResetDay",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "totalVotes",
         type: "uint256",
       },
     ],

@@ -15,7 +15,7 @@ export function useVoteLimit() {
   });
 
   const voteCount = voteInfo ? Number((voteInfo as [bigint, number])[0]) : 0;
-  const hasReachedLimit = voteCount >= 10;
+  const hasReachedLimit = voteCount >= 20;
 
   return { hasReachedLimit };
 }

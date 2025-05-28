@@ -1,10 +1,9 @@
-export type DappsProps = {
+export type DappGridCardProps = {
   id: number;
   name: string;
   voteCount: number;
+  url: string | undefined;
+  logo: string | undefined;
 };
 
-export type FilteredDappsProps = Omit<DappsProps, "voteCount"> & {
-  url: string;
-  logo: string;
-};
+export type VoteInfo = [bigint, number, number];

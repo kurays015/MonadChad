@@ -1,6 +1,7 @@
 import { data } from "@/lib/data";
 import VoteCount from "./vote-count";
 import VoteCountdown from "./vote-countdown";
+import UserTotalVotes from "./user-total-votes";
 
 export default function VotingSectionHeader() {
   return (
@@ -19,6 +20,7 @@ export default function VotingSectionHeader() {
           {data.length} dApps
         </p>
         <VoteCount />
+        <UserTotalVotes />
       </div>
       <VoteCountdown />
     </div>
