@@ -127,19 +127,3 @@
 }
 
 /* Optional: Style specific toast elements */
-[data-sonner-toast] [data-title] {
-  color: white !important;
-  font-weight: 600;
-}
-
-[data-sonner-toast] [data-description] {
-  color: #c3b6ff !important;
-  font-size: 0.875rem;
-}
-
-[data-sonner-toast] [data-button] {
-  background: #6e54ff !important;
-  color: white !important;
-  border-radius: 0.375rem;
-  padding: 0.5rem 1rem;
-}

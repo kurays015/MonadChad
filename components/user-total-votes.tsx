@@ -10,6 +10,8 @@ export default function UserTotalVotes() {
   if (isLoading) return <p className="text-gray-400 text-sm">Loading...</p>;
 
   return (
-    <div className="text-gray-400 text-sm">Total Votes: {allTimeVotes}</div>
+    <div className="text-gray-400 customSm:text-xs md:text-sm lg:text-base">
+      Total Votes: {allTimeVotes}
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import useDApps from "@/hooks/useDApps";
 import { contractAddress } from "@/lib/contract-address";
 import { votingAbi } from "@/lib/votingAbi";
 import { usePageStore } from "@/store/page-store";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useReadContract } from "wagmi";
 import DappGridCard from "./dapp-grid-card";
 import { useSearchStore } from "@/store/search-store";
@@ -19,8 +19,6 @@ export default function DappsGrid() {
     functionName: "dappCount",
   });
   const dapps = useDApps(contractAddress, dappCount);
-
-  console.log(dapps, "DAPSS");
 
   const dappsPerPage = 12;
   const searchQuery = useSearchStore(state => state.searchQuery);

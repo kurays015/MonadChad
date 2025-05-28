@@ -1,58 +1,46 @@
 "use client";
 
-import { ExternalLink, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { CardContent } from "./ui/card";
 import { Input } from "./ui/input";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useWriteContract } from "wagmi";
-import { useState } from "react";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useEffect, useState } from "react";
 import { contractAddress } from "@/lib/contract-address";
 import { votingAbi } from "@/lib/votingAbi";
 import { toast } from "sonner";
-import Link from "next/link";
+import TxToast from "./tx-toast";
 
 export default function Content() {
   const [newDappName, setNewDappName] = useState("");
-  const { writeContractAsync, isPending } = useWriteContract();
-
+  const { writeContractAsync, isPending, data: hash } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash: hash,
+    });
   const { openConnectModal } = useConnectModal();
+
+  useEffect(() => {
+    if (isConfirmed && !isConfirming) {
+      toast(() => <TxToast txHash={hash} />, {
+        duration: 7000,
+        unstyled: true,
+      });
+    }
+  }, [isConfirming, isConfirmed]);
 
   const handleAddDapp = async () => {
     if (!newDappName) return alert("Enter a name");
 
     try {
-      const txHash = await writeContractAsync({
+      await writeContractAsync({
         address: contractAddress,
         abi: votingAbi,
         functionName: "addDApp",
         args: [newDappName],
       });
       setNewDappName("");
-
-      // await new Promise(resolve => setTimeout(resolve, 3000));
-
-      if (txHash) {
-        toast(
-          <div className="flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2a174a] via-[#6E54FF] to-[#836EF9] shadow-lg border border-[#6E54FF]">
-            <span className="font-semibold text-white text-base drop-shadow-sm">
-              Transaction Successful!
-            </span>
-            <Link
-              href={`https://testnet.monadexplorer.com/tx/${txHash}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-[#C3B6FF] hover:text-white underline"
-            >
-              <ExternalLink className="w-4 h-4 ml-2" />
-              <span className="ml-1 text-xs">View</span>
-            </Link>
-          </div>,
-          {
-            duration: 5000,
-          }
-        );
-      }
     } catch (error) {
       alert("Error adding dApp: " + (error as Error).message);
     }

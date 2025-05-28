@@ -16,7 +16,7 @@ export default function VotingSectionHeader() {
         Vote Your Favorite Monad dApp
       </h1>
       <div className="flex items-center justify-center gap-2 w-full mt-4">
-        <p className="text-sm text-muted-foreground font-semibold">
+        <p className="customSm:text-xs md:text-sm lg:text-base text-muted-foreground font-semibold">
           {data.length} dApps
         </p>
         <VoteCount />

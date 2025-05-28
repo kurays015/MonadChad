@@ -4,7 +4,6 @@ import { useAccount, useReadContract } from "wagmi";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 import { votingAbi } from "@/lib/votingAbi";
 import { contractAddress } from "@/lib/contract-address";
-
 import Content from "./add-dapp-content";
 
 export default function AddDapp() {
