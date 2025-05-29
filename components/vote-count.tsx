@@ -3,10 +3,11 @@
 import useUserVotingInfo from "@/hooks/useUserVotingInfo";
 
 export default function VoteCount() {
-  const { allTimeVotes, error, isLoading, votesLeft, address } =
-    useUserVotingInfo();
+  const { isError, error, isLoading, votesLeft, address } = useUserVotingInfo();
 
   if (!address) return <p className="text-gray-400 text-sm">Connect wallet</p>;
+
+  if (isError) return <p className="text-gray-400 text-sm">{error?.message}</p>;
 
   if (isLoading) return <p className="text-gray-400 text-sm">Loading...</p>;
 

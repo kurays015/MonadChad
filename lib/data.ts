@@ -479,4 +479,52 @@ export const data = [
     url: "https://atlantisdex.xyz/",
     logo: "https://pbs.twimg.com/profile_images/1902110216402927616/2KI7eXdp_400x400.jpg",
   },
+  {
+    id: 81,
+    name: "GlacierFi",
+    url: "https://glacierfi.com/",
+    logo: "https://pbs.twimg.com/profile_images/1916357619377172481/PKVnBbsj_400x400.jpg",
+  },
+  {
+    id: 82,
+    name: "Amertis",
+    url: "https://www.amertis.exchange/",
+    logo: "https://pbs.twimg.com/profile_images/1842674361553014784/tozTYLZi_400x400.jpg",
+  },
+  {
+    id: 83,
+    name: "Sherpa",
+    url: "https://www.sherpa.trade/",
+    logo: "https://pbs.twimg.com/profile_images/1917218700479901696/1-PQqv8G_400x400.jpg",
+  },
+  {
+    id: 84,
+    name: "Euclid",
+    url: "https://testnet.euclidswap.io/",
+    logo: "https://pbs.twimg.com/profile_images/1787780246256726016/yaY-XoKg_400x400.jpg",
+  },
+  {
+    id: 85,
+    name: "Orochi",
+    url: "https://onprover.orochi.network/",
+    logo: "https://pbs.twimg.com/profile_images/1877208842834161666/DosXGKCB_400x400.jpg",
+  },
+  {
+    id: 86,
+    name: "zkSwap Finance",
+    url: "https://www.zkswap.finance/",
+    logo: "https://pbs.twimg.com/profile_images/1904222996535152640/twjIq6x__400x400.jpg",
+  },
+  {
+    id: 87,
+    name: "Crust Finance",
+    url: "https://testnet.crust.finance/",
+    logo: "https://pbs.twimg.com/profile_images/1814222320795369473/_EZGsvtJ_400x400.jpg",
+  },
+  {
+    id: 88,
+    name: "Taya",
+    url: "https://app.taya.fi/swap",
+    logo: "https://pbs.twimg.com/profile_images/1764926249149849601/kI933ivI_400x400.jpg",
+  },
 ];

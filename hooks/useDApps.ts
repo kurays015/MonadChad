@@ -6,7 +6,7 @@ export default function useDApps(
   contractAddress: `0x${string}`,
   dappCount: number | unknown
 ) {
-  const maxDApps = 80;
+  const maxDApps = 300;
   const dAppQueries = Array.from({ length: maxDApps }, (_, i) => i + 1).map(
     id => ({
       id,

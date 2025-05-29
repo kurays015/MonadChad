@@ -12,6 +12,7 @@ export default function useUserVotingInfo() {
     data: voteInfo,
     isLoading,
     error,
+    isError,
   } = useReadContract({
     address: contractAddress,
     abi: votingAbi,
@@ -33,5 +34,6 @@ export default function useUserVotingInfo() {
     isLoading,
     error,
     address,
+    isError,
   };
 }

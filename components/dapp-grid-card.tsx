@@ -1,10 +1,11 @@
+"use client ";
+
 import Image from "next/image";
 import { Card, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { LinkIcon, Loader2 } from "lucide-react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
 import { useVotingStore } from "@/store/voting-store";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
 import type { DappGridCardProps } from "@/types";
@@ -16,7 +17,6 @@ export default function DappGridCard({
   url,
   voteCount,
 }: DappGridCardProps) {
-  const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
   const { hasReachedLimit } = useVoteLimit();
 
@@ -27,9 +27,7 @@ export default function DappGridCard({
   const loadingDappId = useVotingStore(state => state.loadingDappId);
 
   const handleVote = (dapp: { id: number; name: string }) => {
-    if (!isConnected) return alert("Please connect your wallet.");
-    if (hasReachedLimit)
-      return alert("You’ve reached your 10-vote daily limit.");
+    if (hasReachedLimit) return;
     setSelectedOption(dapp);
     setTransactionError(null);
   };
@@ -44,17 +42,16 @@ export default function DappGridCard({
     >
       <CardHeader className="relative gap-4">
         <CardTitle className="flex items-center space-x-2 text-white">
-          {logo && (
-            <Image
-              src={logo ? logo : placeholder}
-              alt={`${name} logo`}
-              blurDataURL={logo}
-              placeholder="blur"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-          )}
+          <Image
+            src={!logo ? placeholder : logo}
+            alt={`${name} logo`}
+            blurDataURL={logo}
+            placeholder="blur"
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+
           <Link
             href={url || ""}
             target="_blank"
@@ -77,7 +74,7 @@ export default function DappGridCard({
       </CardHeader>
       <CardFooter>
         <Button
-          className="w-full inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 gap-[6px] transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-[500] disabled:cursor-not-allowed"
+          className="w-full inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 gap-[6px] transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-[500] disabled:cursor-not-allowed disabled:pointer-events-auto"
           onClick={
             openConnectModal ? openConnectModal : () => handleVote({ id, name })
           }

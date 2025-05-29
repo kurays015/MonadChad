@@ -14,7 +14,6 @@ import {
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { votingAbi } from "@/lib/votingAbi";
 import { contractAddress } from "@/lib/contract-address";
-import { useEffect } from "react";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
@@ -23,13 +22,10 @@ import TxToast from "./tx-toast";
 
 export default function ConfirmationDialog() {
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-    error: receiptError,
-  } = useWaitForTransactionReceipt({
-    hash: hash,
-  });
+  const { isLoading: isConfirming, error: receiptError } =
+    useWaitForTransactionReceipt({
+      hash: hash,
+    });
 
   const selectedOption = useVotingStore(state => state.selectedOption);
   const setSelectedOption = useVotingStore(state => state.setSelectedOption);
@@ -40,34 +36,34 @@ export default function ConfirmationDialog() {
   const setLoadingDappId = useVotingStore(state => state.setLoadingDappId);
   const { hasReachedLimit } = useVoteLimit();
 
-  useEffect(() => {
-    if (isConfirmed && !isConfirming) {
-      setSelectedOption(null);
-      setLoadingDappId(null);
-      toast(() => <TxToast txHash={hash} />, {
-        duration: 7000,
-        unstyled: true,
-      });
-    }
-  }, [isConfirming, isConfirmed]);
-
   const confirmVote = async () => {
     if (!selectedOption) return;
     setLoadingDappId(selectedOption.id);
     setTransactionError(null);
 
-    try {
-      await writeContractAsync({
+    await writeContractAsync(
+      {
         address: contractAddress,
         abi: votingAbi,
         functionName: "vote",
         args: [BigInt(selectedOption.id)],
-      });
-    } catch (error) {
-      console.error("Vote failed:", error);
-      setTransactionError("Vote failed: " + (error as Error).message);
-      setLoadingDappId(null);
-    }
+      },
+      {
+        onSuccess: txHash => {
+          setSelectedOption(null);
+          setLoadingDappId(null);
+          toast(() => <TxToast txHash={txHash} />, {
+            duration: 7000,
+            unstyled: true,
+          });
+        },
+        onError: error => {
+          console.error("Vote failed:", error);
+          setTransactionError("Vote failed: " + (error as Error).message);
+          setLoadingDappId(null);
+        },
+      }
+    );
   };
 
   return (

@@ -5,8 +5,8 @@ import { Button } from "./ui/button";
 import { CardContent } from "./ui/card";
 import { Input } from "./ui/input";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
-import { useEffect, useState } from "react";
+import { useWriteContract } from "wagmi";
+import { useState } from "react";
 import { contractAddress } from "@/lib/contract-address";
 import { votingAbi } from "@/lib/votingAbi";
 import { toast } from "sonner";
@@ -14,36 +14,32 @@ import TxToast from "./tx-toast";
 
 export default function Content() {
   const [newDappName, setNewDappName] = useState("");
-  const { writeContractAsync, isPending, data: hash } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash: hash,
-    });
+  const { writeContractAsync, isPending } = useWriteContract();
   const { openConnectModal } = useConnectModal();
-
-  useEffect(() => {
-    if (isConfirmed && !isConfirming) {
-      toast(() => <TxToast txHash={hash} />, {
-        duration: 7000,
-        unstyled: true,
-      });
-    }
-  }, [isConfirming, isConfirmed]);
 
   const handleAddDapp = async () => {
     if (!newDappName) return alert("Enter a name");
 
-    try {
-      await writeContractAsync({
+    await writeContractAsync(
+      {
         address: contractAddress,
         abi: votingAbi,
         functionName: "addDApp",
         args: [newDappName],
-      });
-      setNewDappName("");
-    } catch (error) {
-      alert("Error adding dApp: " + (error as Error).message);
-    }
+      },
+      {
+        onSuccess: txHash => {
+          toast(() => <TxToast txHash={txHash} />, {
+            duration: 7000,
+            unstyled: true,
+          });
+        },
+        onError: error => {
+          alert("Error adding dApp: " + (error as Error).message);
+        },
+      }
+    );
+    setNewDappName("");
   };
 
   return (

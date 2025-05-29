@@ -19,9 +19,9 @@ export default function DappsGrid() {
     functionName: "dappCount",
   });
   const dapps = useDApps(contractAddress, dappCount);
+  const searchQuery = useSearchStore(state => state.searchQuery);
 
   const dappsPerPage = 12;
-  const searchQuery = useSearchStore(state => state.searchQuery);
 
   const sortedContractDataByVotes = dapps.sort(
     (a, b) => b.voteCount - a.voteCount
