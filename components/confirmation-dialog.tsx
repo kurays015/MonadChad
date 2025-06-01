@@ -19,13 +19,17 @@ import { Loader2 } from "lucide-react";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
 import { Card, CardContent } from "./ui/card";
 import TxToast from "./tx-toast";
+import { useEffect } from "react";
 
 export default function ConfirmationDialog() {
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
-  const { isLoading: isConfirming, error: receiptError } =
-    useWaitForTransactionReceipt({
-      hash: hash,
-    });
+  const {
+    isLoading: isConfirming,
+    error: receiptError,
+    isSuccess: isConfirmed,
+  } = useWaitForTransactionReceipt({
+    hash: hash,
+  });
 
   const selectedOption = useVotingStore(state => state.selectedOption);
   const setSelectedOption = useVotingStore(state => state.setSelectedOption);
@@ -49,9 +53,8 @@ export default function ConfirmationDialog() {
         args: [selectedOption.id],
       },
       {
-        onSuccess: txHash => {
-          setSelectedOption(null);
-          setLoadingDappId(null);
+        onSuccess: async txHash => {
+          await new Promise(resolve => setTimeout(resolve, 3000));
           toast(() => <TxToast txHash={txHash} />, {
             duration: 7000,
             unstyled: true,
@@ -65,6 +68,13 @@ export default function ConfirmationDialog() {
       }
     );
   };
+
+  useEffect(() => {
+    if (isConfirmed && !isConfirming) {
+      setSelectedOption(null);
+      setLoadingDappId(null);
+    }
+  }, [isConfirming, isConfirmed]);
 
   return (
     <AlertDialog open={!!selectedOption && !hasReachedLimit}>
