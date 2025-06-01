@@ -7,15 +7,12 @@ import { contractAddress } from "@/lib/contract-address";
 export function useVoteLimit() {
   const { address } = useAccount();
 
-  const { data: voteInfo } = useReadContract({
+  const { data: hasReachedLimit } = useReadContract({
     address: contractAddress,
     abi: votingAbi,
-    functionName: "votes",
+    functionName: "hasReachedVoteLimit",
     args: [address],
-  });
-
-  const voteCount = voteInfo ? Number((voteInfo as [bigint, number])[0]) : 0;
-  const hasReachedLimit = voteCount >= 20;
+  }) as { data: boolean };
 
   return { hasReachedLimit };
 }

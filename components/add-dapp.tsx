@@ -1,19 +1,13 @@
 "use client";
 
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount } from "wagmi";
 import { Card, CardHeader, CardTitle } from "./ui/card";
-import { votingAbi } from "@/lib/votingAbi";
-import { contractAddress } from "@/lib/contract-address";
 import Content from "./add-dapp-content";
+import useOwner from "@/hooks/useOwner";
 
 export default function AddDapp() {
   const { address, isConnected } = useAccount();
-
-  const { data: ownerAddress } = useReadContract({
-    address: contractAddress,
-    abi: votingAbi,
-    functionName: "owner",
-  });
+  const { ownerAddress } = useOwner();
 
   return (
     <Card

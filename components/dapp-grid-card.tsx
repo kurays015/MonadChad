@@ -10,6 +10,9 @@ import { useVotingStore } from "@/store/voting-store";
 import { useVoteLimit } from "@/hooks/useVoteLimit";
 import type { DappGridCardProps } from "@/types";
 
+const placeholder =
+  "https://cdn.prod.website-files.com/667c57e6f9254a4b6d914440/667d7104644c621965495f6e_LogoMark.svg";
+
 export default function DappGridCard({
   id,
   logo,
@@ -26,14 +29,11 @@ export default function DappGridCard({
   );
   const loadingDappId = useVotingStore(state => state.loadingDappId);
 
-  const handleVote = (dapp: { id: number; name: string }) => {
+  const handleVote = (dapp: { id: number | undefined; name: string }) => {
     if (hasReachedLimit) return;
     setSelectedOption(dapp);
     setTransactionError(null);
   };
-
-  const placeholder =
-    "https://cdn.prod.website-files.com/667c57e6f9254a4b6d914440/667d7104644c621965495f6e_LogoMark.svg";
 
   return (
     <Card
@@ -45,8 +45,6 @@ export default function DappGridCard({
           <Image
             src={!logo ? placeholder : logo}
             alt={`${name} logo`}
-            blurDataURL={logo}
-            placeholder="blur"
             width={40}
             height={40}
             className="rounded-full"
@@ -62,7 +60,7 @@ export default function DappGridCard({
           </Link>
 
           <Link href={url || ""} target="_blank" rel="noopener noreferrer">
-            <div className="absolute right-2 top-5 -translate-y-1/2 flex items-center justify-center w-6 h-6 border border-white/20 rounded-full transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:border-[#6E54FF] hover:shadow-[0_0_8px_#6E54FF,0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)]">
+            <div className="absolute right-2 top-5 -translate-y-1/2 flex items-center justify-center w-6 h-6 border border-white/20 rounded-full transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:border-[#6E54FF] hover:shadow-[0_0_8px_#6E54FF,0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)]">
               <LinkIcon className="w-3 h-3 text-white" />
             </div>
           </Link>
@@ -74,7 +72,7 @@ export default function DappGridCard({
       </CardHeader>
       <CardFooter>
         <Button
-          className="w-full inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 gap-[6px] transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-[500] disabled:cursor-not-allowed disabled:pointer-events-auto"
+          className="w-full inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 gap-[6px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-[500] disabled:cursor-not-allowed disabled:pointer-events-auto"
           onClick={
             openConnectModal ? openConnectModal : () => handleVote({ id, name })
           }

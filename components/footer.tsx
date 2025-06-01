@@ -26,7 +26,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             href="https://x.com/intent/follow?screen_name=constkurays"
-            className="flex items-center justify-center w-6 h-6 border border-white/20 rounded-full transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:border-[#6E54FF] hover:shadow-[0_0_8px_#6E54FF,0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)]"
+            className="flex items-center justify-center w-6 h-6 border border-white/20 rounded-full transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:border-[#6E54FF] hover:shadow-[0_0_8px_#6E54FF,0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)]"
           >
             <FaXTwitter className="w-3 h-3" />
           </Link>

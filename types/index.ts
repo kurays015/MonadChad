@@ -1,9 +1,13 @@
 export type DappGridCardProps = {
-  id: number;
+  id: number | undefined;
   name: string;
   voteCount: number;
   url: string | undefined;
   logo: string | undefined;
 };
 
-export type VoteInfo = [bigint, number, number];
+export type VoteInfo = {
+  count: bigint;
+  lastResetDay: bigint;
+  totalVotes: bigint;
+};

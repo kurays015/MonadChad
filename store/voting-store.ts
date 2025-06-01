@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
-type SelectedOption = { id: number; name: string } | null;
-
+type SelectedOption = { id: number | undefined; name: string } | null;
 interface VotingState {
   selectedOption: SelectedOption;
   setSelectedOption: (option: SelectedOption) => void;

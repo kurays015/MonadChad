@@ -1,49 +1,45 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useReadContract, useAccount } from "wagmi";
+import { Address } from "viem";
+import { votingAbi } from "@/lib/votingAbi";
+import { contractAddress } from "@/lib/contract-address";
+
+// Interface for DApp struct
+interface DApp {
+  name: string;
+  voteCount: bigint;
+}
 
 export default function Test() {
-  async function main() {
-    const MONAD_RPC = "https://testnet-rpc.monad.xyz/";
+  // Fetch all dApps using getAllDApps
+  const {
+    data: dapps,
+    error: dappError,
+    isLoading,
+  } = useReadContract({
+    address: contractAddress,
+    abi: votingAbi,
+    functionName: "getAllDApps",
+  }) as { data: DApp[] | undefined; error: Error | null; isLoading: boolean };
 
-    try {
-      const response = await fetch(MONAD_RPC, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          jsonrpc: "2.0",
-          method: "eth_getBalance",
-          params: ["0x5686ac82D1BB3f1b3BCBa10DBB3170a11dc87236", "latest"],
-          id: 1,
-        }),
-      });
+  console.log(dapps, "DAPPS");
 
-      const data = await response.json();
-      if (data.error) {
-        throw new Error(`RPC Error: ${data.error.message}`);
-      }
-
-      console.log(data);
-
-      // Convert hex balance to decimal and from wei to MON
-      const balanceInWei = BigInt(data.result);
-      const balanceInMON = Number(balanceInWei) / 1e18;
-
-      return {
-        balanceWei: balanceInWei.toString(),
-        balanceMON: balanceInMON,
-      };
-    } catch (error) {
-      console.error("Error fetching balance:", error);
-      throw error;
-    }
-  }
-
-  useEffect(() => {
-    main();
-  }, []);
-
-  return <div>test</div>;
+  return (
+    <div>
+      <h1>DApp Voting List</h1>
+      {dapps?.length === 0 ? (
+        <p>Loading dApps...</p>
+      ) : (
+        <ul>
+          {dapps?.map((dapp, index) => (
+            <li key={index}>
+              <strong>{dapp.name}</strong>: {dapp.voteCount.toString()} votes
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }

@@ -38,7 +38,7 @@ export default function ConfirmationDialog() {
 
   const confirmVote = async () => {
     if (!selectedOption) return;
-    setLoadingDappId(selectedOption.id);
+    setLoadingDappId(selectedOption.id!);
     setTransactionError(null);
 
     await writeContractAsync(
@@ -46,7 +46,7 @@ export default function ConfirmationDialog() {
         address: contractAddress,
         abi: votingAbi,
         functionName: "vote",
-        args: [BigInt(selectedOption.id)],
+        args: [selectedOption.id],
       },
       {
         onSuccess: txHash => {
@@ -103,7 +103,7 @@ export default function ConfirmationDialog() {
         <AlertDialogFooter>
           <AlertDialogCancel
             onClick={() => setSelectedOption(null)}
-            className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[6px] transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-[#0c0c0c] text-white border border-transparent shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:bg-[#0c0c0c] hover:text-white  hover:border-[#6E54FF] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-medium"
+            className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[6px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#0c0c0c] text-white border border-transparent shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] hover:bg-[#0c0c0c] hover:text-white  hover:border-[#6E54FF] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08)] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-medium"
           >
             Cancel
           </AlertDialogCancel>
