@@ -11,36 +11,44 @@ export default function useUserVotingInfo() {
 
   const {
     data: voteInfo,
-    isLoading,
-    error,
-    isError,
+    isLoading: voteInfoLoading,
+    isError: voteInfoError,
+    error: voteInfoErrorObj,
   } = useReadContract({
     address: contractAddress,
     abi: votingAbi,
     functionName: "getUserVoteInfo",
-    args: [address],
-    query: {
-      enabled: !!address,
-    },
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
   }) as {
-    data: VoteInfo;
+    data: VoteInfo | undefined;
     isLoading: boolean;
     isError: boolean;
     error: ReadContractErrorType | null;
   };
 
-  const voteCount = voteInfo ? Number(voteInfo.count) : 0;
-  const totalVotes = voteInfo ? Number(voteInfo.totalVotes) : 0;
+  const { data: currentVotingDay, isLoading: dayLoading } = useReadContract({
+    address: contractAddress,
+    abi: votingAbi,
+    functionName: "getCurrentVotingDay",
+    query: { enabled: !!address },
+  });
 
+  const voteCount =
+    voteInfo && voteInfo.lastResetDay === currentVotingDay
+      ? Number(voteInfo.count)
+      : 0;
+
+  const totalVotes = voteInfo ? Number(voteInfo.totalVotes) : 0;
   const votesLeft = Math.max(0, 20 - voteCount);
 
   return {
     voteCount,
     votesLeft,
     totalVotes,
-    isLoading,
-    error,
+    isLoading: voteInfoLoading || dayLoading,
+    error: voteInfoErrorObj,
     address,
-    isError,
+    isError: voteInfoError,
   };
 }
