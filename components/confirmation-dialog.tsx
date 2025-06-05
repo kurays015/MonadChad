@@ -20,8 +20,12 @@ import { useVoteLimit } from "@/hooks/useVoteLimit";
 import { Card, CardContent } from "./ui/card";
 import TxToast from "./tx-toast";
 import { useEffect } from "react";
+import useDApps from "@/hooks/useDApps";
+import useUserVotingInfo from "@/hooks/useUserVotingInfo";
 
 export default function ConfirmationDialog() {
+  const { voteCountRefetch } = useDApps();
+  const { remainingVoteCountRefetch } = useUserVotingInfo();
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
   const {
     isLoading: isConfirming,
@@ -73,6 +77,8 @@ export default function ConfirmationDialog() {
     if (isConfirmed && !isConfirming) {
       setSelectedOption(null);
       setLoadingDappId(null);
+      voteCountRefetch();
+      remainingVoteCountRefetch();
     }
   }, [isConfirming, isConfirmed]);
 

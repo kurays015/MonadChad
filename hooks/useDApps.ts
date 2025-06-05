@@ -21,7 +21,7 @@ export default function useDApps() {
     error: dappsError,
     isLoading,
     isError,
-    refetch,
+    refetch: voteCountRefetch,
     isSuccess,
   } = useReadContract({
     address: contractAddress,
@@ -79,7 +79,7 @@ export default function useDApps() {
     dappsError,
     isError,
     isLoading,
-    refetch,
+    voteCountRefetch,
     filteredDapps,
     paginatedDapps,
     dappsDataByVotes,

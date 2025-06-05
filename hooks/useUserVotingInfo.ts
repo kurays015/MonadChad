@@ -5,6 +5,7 @@ import { votingAbi } from "@/lib/votingAbi";
 import { ReadContractErrorType } from "viem";
 import { VoteInfo } from "@/types";
 import { useAccount, useReadContract } from "wagmi";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 export default function useUserVotingInfo() {
   const { address } = useAccount();
@@ -14,6 +15,7 @@ export default function useUserVotingInfo() {
     isLoading: voteInfoLoading,
     isError: voteInfoError,
     error: voteInfoErrorObj,
+    refetch: remainingVoteCountRefetch,
   } = useReadContract({
     address: contractAddress,
     abi: votingAbi,
@@ -25,6 +27,9 @@ export default function useUserVotingInfo() {
     isLoading: boolean;
     isError: boolean;
     error: ReadContractErrorType | null;
+    refetch: (
+      options?: RefetchOptions
+    ) => Promise<QueryObserverResult<unknown, ReadContractErrorType>>;
   };
 
   const { data: currentVotingDay, isLoading: dayLoading } = useReadContract({
@@ -50,5 +55,6 @@ export default function useUserVotingInfo() {
     error: voteInfoErrorObj,
     address,
     isError: voteInfoError,
+    remainingVoteCountRefetch,
   };
 }

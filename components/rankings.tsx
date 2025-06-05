@@ -45,7 +45,7 @@ export default function Rankings() {
   return (
     <>
       {rankingDapps
-        .slice(0, 15) // Show top 10 for brevity
+        .slice(0, 20) // Show top 10 for brevity
         .map(dapp => {
           const percent =
             totalVotes && totalVotes > 0

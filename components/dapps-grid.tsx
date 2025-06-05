@@ -5,8 +5,7 @@ import DappGridCard from "./dapp-grid-card";
 import { Loader2 } from "lucide-react";
 
 export default function DappsGrid() {
-  const { dapps, dappsError, isError, isLoading, refetch, paginatedDapps } =
-    useDApps();
+  const { dapps, dappsError, isError, isLoading, paginatedDapps } = useDApps();
 
   if (isError)
     return (
