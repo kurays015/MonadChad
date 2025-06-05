@@ -7,7 +7,7 @@ export default function TxToast({
   txHash: `0x${string}` | undefined;
 }) {
   return (
-    <div className="flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2a174a] via-[#6E54FF] to-[#836EF9] shadow-lg border border-[#6E54FF] font-semibold text-white text-base drop-shadow-sm  ">
+    <div className=" z-50 flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2a174a] via-[#6E54FF] to-[#836EF9] shadow-lg border border-[#6E54FF] font-semibold text-white text-base drop-shadow-sm  ">
       <span className="">Transaction Successful!</span>
       <Link
         href={`https://testnet.monadexplorer.com/tx/${txHash}`}

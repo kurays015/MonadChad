@@ -34,7 +34,7 @@ export default function ConfirmationDialog() {
   } = useWaitForTransactionReceipt({
     hash: hash,
   });
-
+  const { hasReachedLimit, voteLimitRefetch } = useVoteLimit();
   const selectedOption = useVotingStore(state => state.selectedOption);
   const setSelectedOption = useVotingStore(state => state.setSelectedOption);
   const transactionError = useVotingStore(state => state.transactionError);
@@ -42,7 +42,6 @@ export default function ConfirmationDialog() {
     state => state.setTransactionError
   );
   const setLoadingDappId = useVotingStore(state => state.setLoadingDappId);
-  const { hasReachedLimit } = useVoteLimit();
 
   const confirmVote = async () => {
     if (!selectedOption) return;
@@ -79,8 +78,9 @@ export default function ConfirmationDialog() {
       setLoadingDappId(null);
       voteCountRefetch();
       remainingVoteCountRefetch();
+      voteLimitRefetch();
     }
-  }, [isConfirming, isConfirmed]);
+  }, [isConfirming, isConfirmed, hasReachedLimit]);
 
   return (
     <AlertDialog open={!!selectedOption && !hasReachedLimit}>
@@ -125,7 +125,7 @@ export default function ConfirmationDialog() {
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={confirmVote}
-            disabled={isPending || isConfirming}
+            disabled={isPending || isConfirming || hasReachedLimit}
             className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[6px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#6E54FF] text-white border border-transparent shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:border-purple-500 hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-10 px-4 py-[6px] rounded-[100px] text-[14px] leading-[24px] font-[500]"
           >
             {isPending || isConfirming ? (
