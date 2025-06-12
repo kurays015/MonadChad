@@ -527,4 +527,10 @@ export const data = [
     url: "https://app.taya.fi/swap",
     logo: "https://pbs.twimg.com/profile_images/1764926249149849601/kI933ivI_400x400.jpg",
   },
+  {
+    id: 89,
+    name: "Rysc Finance",
+    url: "https://app.rysk.finance",
+    logo: "https://pbs.twimg.com/profile_images/1556700928748781569/bLjEj9yu_400x400.jpg",
+  },
 ];
