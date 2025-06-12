@@ -16,6 +16,10 @@ interface DApp {
 }
 
 export default function useDApps() {
+  const searchQuery = useSearchStore(state => state.searchQuery);
+  const currentPage = usePageStore(state => state.currentPage);
+  const dappsPerPage = 12;
+
   const {
     data: dapps,
     error: dappsError,
@@ -27,6 +31,9 @@ export default function useDApps() {
     address: contractAddress,
     abi: votingAbi,
     functionName: "getAllDApps",
+    query: {
+      retry: true,
+    },
   }) as {
     data: DApp[] | undefined;
     error: Error | null;
@@ -37,11 +44,6 @@ export default function useDApps() {
     isError: boolean;
     isSuccess: boolean;
   };
-
-  const searchQuery = useSearchStore(state => state.searchQuery);
-  const currentPage = usePageStore(state => state.currentPage);
-
-  const dappsPerPage = 12;
 
   const sortedContractDataByVotes = dapps
     ? [...dapps].sort((a, b) => Number(b.voteCount) - Number(a.voteCount))
