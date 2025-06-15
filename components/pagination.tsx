@@ -8,7 +8,7 @@ import { data } from "@/lib/data";
 export default function Pagination() {
   const currentPage = usePageStore(state => state.currentPage);
   const setCurrentPage = usePageStore(state => state.setCurrentPage);
-  const totalPages = Math.ceil(data.length / 12);
+  const totalPages = Math.ceil(data.length / 20);
 
   return (
     <>

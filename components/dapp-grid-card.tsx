@@ -40,7 +40,7 @@ export default function DappGridCard({
       key={id}
       className="bg-[#1A1D21] border-none shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(0,0,0,0.08),0px_0px_0px_1px_#000] transition-transform hover:scale-105"
     >
-      <CardHeader className="relative gap-4">
+      <CardHeader className="relative gap-4 p-4 pt-5">
         <CardTitle className="flex items-center space-x-2 text-white">
           <Image
             src={!logo ? placeholder : logo}
@@ -54,7 +54,7 @@ export default function DappGridCard({
             href={url || ""}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline"
+            className="hover:underline customSm:text-sm"
           >
             {name}
           </Link>

@@ -533,4 +533,10 @@ export const data = [
     url: "https://app.rysk.finance",
     logo: "https://pbs.twimg.com/profile_images/1556700928748781569/bLjEj9yu_400x400.jpg",
   },
+  {
+    id: 90,
+    name: "Goose",
+    url: "https://www.goose.farm",
+    logo: "https://pbs.twimg.com/profile_images/1839294437803044870/DMmcRsCR_400x400.jpg",
+  },
 ];

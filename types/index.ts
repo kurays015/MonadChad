@@ -11,3 +11,9 @@ export type VoteInfo = {
   lastResetDay: bigint;
   totalVotes: bigint;
 };
+
+export type DApp = {
+  id: number;
+  name: string;
+  voteCount: bigint;
+};

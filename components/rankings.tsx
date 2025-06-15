@@ -5,16 +5,12 @@ import Link from "next/link";
 import { Progress } from "./ui/progress";
 import useDApps from "@/hooks/useDApps";
 import { Loader2 } from "lucide-react";
+import { useAccount } from "wagmi";
 
 export default function Rankings() {
-  const {
-    dapps,
-    isError,
-    isLoading,
-    filteredDapps,
-    dappsDataByVotes,
-    dappsError,
-  } = useDApps();
+  const { address } = useAccount();
+  const { dapps, isError, isLoading, dappsDataByVotes, dappsError } =
+    useDApps();
 
   if (isError)
     return (
@@ -37,49 +33,48 @@ export default function Rankings() {
     0
   );
 
-  const rankingDapps =
-    filteredDapps && filteredDapps?.length
-      ? [...filteredDapps]
-      : [...dappsDataByVotes];
-
   return (
     <>
-      {rankingDapps
-        .slice(0, 20) // Show top 10 for brevity
-        .map(dapp => {
-          const percent =
-            totalVotes && totalVotes > 0
-              ? (dapp.voteCount / totalVotes) * 100
-              : 0;
+      {!address ? (
+        <p className="text-slate-400">Connect a wallet first...</p>
+      ) : (
+        dappsDataByVotes
+          .slice(0, 20) // Show top 20 for brevity
+          .map(dapp => {
+            const percent =
+              totalVotes && totalVotes > 0
+                ? (dapp.voteCount / totalVotes) * 100
+                : 0;
 
-          return (
-            <div key={dapp.name} className="space-y-1">
-              <div className="flex justify-between text-sm">
-                <span className="font-medium flex items-center space-x-2">
-                  {dapp.logo && (
-                    <Image
-                      src={dapp.logo}
-                      alt={`${dapp.name} logo`}
-                      width={20}
-                      height={20}
-                      className="rounded-full"
-                    />
-                  )}
-                  <Link
-                    href={dapp.url || ""}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    {dapp.name} {"----->"} {dapp.voteCount}
-                  </Link>
-                </span>
-                <span>{percent.toFixed(2)}%</span>
+            return (
+              <div key={dapp.name} className="space-y-1">
+                <div className="flex justify-between text-sm">
+                  <span className="font-medium flex items-center space-x-2">
+                    {dapp.logo && (
+                      <Image
+                        src={dapp.logo}
+                        alt={`${dapp.name} logo`}
+                        width={20}
+                        height={20}
+                        className="rounded-full"
+                      />
+                    )}
+                    <Link
+                      href={dapp.url || ""}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {dapp.name} {"----->"} {dapp.voteCount}
+                    </Link>
+                  </span>
+                  <span>{percent.toFixed(2)}%</span>
+                </div>
+                <Progress value={percent} className="h-2 text-white bg-white" />
               </div>
-              <Progress value={percent} className="h-2 text-white bg-white" />
-            </div>
-          );
-        })}
+            );
+          })
+      )}
       <p className="text-sm text-muted-foreground mt-3">
         Total Votes: {totalVotes}
       </p>

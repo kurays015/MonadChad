@@ -560,6 +560,42 @@ export const votingAbi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "offset",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "limit",
+        type: "uint256",
+      },
+    ],
+    name: "getPaginatedDApps",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "name",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "voteCount",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct VotingUpgradeableV3.DApp[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "user",
         type: "address",

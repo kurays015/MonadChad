@@ -1,6 +1,6 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { defineChain } from "viem";
-import { monadTestnet } from "@wagmi/core/chains";
+import { monadTestnet } from "viem/chains";
+// import { defineChain } from "viem";
 
 // export const monadTestnet = defineChain({
 //   id: 10143,
